@@ -1,24 +1,31 @@
 'use client'
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { Button } from "./ui/button";
 
 const Appbar = () => {
 
     const session = useSession();
   return (
-    <div className="flex justify-between items-center p-4">
+    <div className="flex w-full border-b border-gray-900 justify-between items-center p-4">
       <div>
-        <h1 className="text-xl font-bold ">Blog</h1>
+        <Link href="/" className="text-4xl font-bold">
+          Blog
+        </Link>
       </div>
-      <div className="space-x-2">
-        <button className="bg-blue-500 p-4">Create post</button>
+      <div className="space-x-2 text-lg ">
+        <Link href="/create">
+          <Button
+            variant={"default"}
+            className=" font-semibold rounded-lg  p-4 "
+          >
+            Create post
+          </Button>
+        </Link>
         {session.data?.user ? (
-          <button onClick={() => signOut()} className="bg-red-500 p-4">
-            Sign out
-          </button>
+          <Button onClick={() => signOut()}>Sign out</Button>
         ) : (
-          <button onClick={() => signIn()} className="bg-blue-500 p-4">
-            Sign in
-          </button>
+          <Button onClick={() => signIn()}>Sign in</Button>
         )}
       </div>
     </div>
